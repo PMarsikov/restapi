@@ -13,25 +13,36 @@ namespace LibraryWebApiPavel.Repository
             _dbContext = dbContext;
         }
 
-        /* public IEnumerable<Book> GetObjects()
-         {
-             try
-             {
-                 return _dbContext.Books.ToList();
-             }
-             catch (Exception e)
-             {
-                 Console.WriteLine(e);
-                 return Enumerable.Empty<Book>();
-             }
-
-         }*/
-
         public async Task<IEnumerable<Book>> GetObjectsAsync()
         {
             return await _dbContext.Books.ToListAsync();
         }
 
+        public async Task<Book> GetObject(int id)
+        {
+            return await _dbContext.Books.FirstOrDefaultAsync(x => x.Id == id);
+
+        }
+
+        public void Create(Book entity)
+        {
+            _dbContext.Books.Add(entity);
+        }
+
+        public void Update(Book item)
+        {
+            _dbContext.Update(item);
+        }
+
+        public void Delete(Book item)
+        {
+            _dbContext.Remove(item);
+        }
+
+        public async Task SaveAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
 
         private bool disposed = false;
 
@@ -53,33 +64,5 @@ namespace LibraryWebApiPavel.Repository
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        /*
-                public void Create(Book entity)
-                {
-                    _dbContext.Books.Add(entity);
-                }
-
-
-                public Book GetObject(int id)
-                {
-                    throw new NotImplementedException();
-                }
-
-                public void Update(Book item)
-                {
-                    throw new NotImplementedException();
-                }
-
-                public void Delete(int id)
-                {
-                    throw new NotImplementedException();
-                }
-
-                public void Save()
-                {
-                    _dbContext.SaveChanges();
-                }
-                */
     }
 }

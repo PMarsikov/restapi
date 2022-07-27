@@ -1,4 +1,6 @@
-﻿namespace LibraryWebApiPavel.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace LibraryWebApiPavel.Models
 {
     public class Book
     {
