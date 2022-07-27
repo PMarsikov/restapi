@@ -4,36 +4,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LibraryWebApiPavel.Repository
 {
-    public class BookRepository : IRepository<Book>
+    public class AuthorRepository : IRepository<Author>
     {
         private readonly LibraryContext _dbContext;
 
-        public BookRepository(LibraryContext dbContext)
+        public AuthorRepository(LibraryContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Book>> GetObjectsAsync()
+        public async Task<IEnumerable<Author>> GetObjectsAsync()
         {
-            return await _dbContext.Books.ToListAsync();
+            return await _dbContext.Authors.ToListAsync();
         }
 
-        public async Task<Book> GetObject(int id)
+        public async Task<Author> GetObject(int id)
         {
-            return await _dbContext.Books.FirstOrDefaultAsync(x => x.Id == id);
+            return await _dbContext.Authors.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Create(Book entity)
+        public void Create(Author entity)
         {
-            _dbContext.Books.Add(entity);
+            _dbContext.Authors.Add(entity);
         }
 
-        public void Update(Book item)
+        public void Update(Author item)
         {
             _dbContext.Update(item);
         }
 
-        public void Delete(Book item)
+        public void Delete(Author item)
         {
             _dbContext.Remove(item);
         }
