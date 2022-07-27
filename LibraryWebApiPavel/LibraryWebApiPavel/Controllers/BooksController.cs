@@ -1,9 +1,7 @@
 ﻿using LibraryWebApiPavel.Models;
 using LibraryWebApiPavel.Repository;
 using LibraryWebApiPavel.Repository.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LibraryWebApiPavel.Controllers
 {
