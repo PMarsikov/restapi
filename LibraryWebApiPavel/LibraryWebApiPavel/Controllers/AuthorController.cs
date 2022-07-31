@@ -62,16 +62,16 @@ namespace LibraryWebApiPavel.Controllers
 			if (author == null)
 			{
 				return BadRequest();
-			}
-			;
-			if (_authorRepository.GetObject(author.Id) == null)
+			};
+			var authorId = await _authorRepository.GetObject(author.Id);
+			if (authorId == null)
 			{
 				return NotFound();
 			}
 
 			_authorRepository.Update(author);
 			await _authorRepository.SaveAsync();
-			return Ok(author);
+			return NoContent();
 		}
 
 		// DELETE api/authors/5
@@ -86,7 +86,7 @@ namespace LibraryWebApiPavel.Controllers
 
 			_authorRepository.Delete(author);
 			await _authorRepository.SaveAsync();
-			return Ok(author);
+			return NoContent();
 		}
 	}
 }

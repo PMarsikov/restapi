@@ -61,16 +61,16 @@ namespace LibraryWebApiPavel.Controllers
             if (book == null)
             {
                 return BadRequest();
-            }
-            ;
-            if (_bookRepository.GetObject(book.Id) == null)
+            };
+            var bookId = await _bookRepository.GetObject(book.Id);
+            if (bookId == null)
             {
                 return NotFound();
             }
 
             _bookRepository.Update(book);
             await _bookRepository.SaveAsync();
-            return Ok(book);
+            return NoContent();
         }
 
         // DELETE api/books/5
@@ -85,7 +85,7 @@ namespace LibraryWebApiPavel.Controllers
 
             _bookRepository.Delete(book);
             await _bookRepository.SaveAsync();
-            return Ok(book);
+            return NoContent();
         }
     }
 }
