@@ -26,7 +26,7 @@ builder.Services.AddSwaggerGen(
 
             options.OperationFilter<SecurityRequirementsOperationFilter>();
         });
-
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => {
         options.TokenValidationParameters = new TokenValidationParameters
