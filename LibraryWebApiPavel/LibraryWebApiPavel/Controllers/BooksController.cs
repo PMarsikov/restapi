@@ -1,6 +1,7 @@
 ﻿using LibraryWebApiPavel.Models;
 using LibraryWebApiPavel.Repository;
 using LibraryWebApiPavel.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryWebApiPavel.Controllers
@@ -17,7 +18,7 @@ namespace LibraryWebApiPavel.Controllers
             this._bookRepository = new BookRepository(db);
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<IActionResult> GetObjectsAsync()
         {
             try
