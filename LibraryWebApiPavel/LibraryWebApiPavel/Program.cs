@@ -25,6 +25,7 @@ builder.Services.AddSwaggerGen(
 
             options.OperationFilter<SecurityRequirementsOperationFilter>();
         });
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => {
@@ -38,7 +39,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddDbContext<LibraryContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
+builder.Services.AddDbContext<LibraryContext>(options => { 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
 builder.Services.AddScoped<IRepository<Book>, BookRepository>();
 builder.Services.AddScoped<IRepository<Author>, AuthorRepository>();
 

@@ -1,4 +1,6 @@
-﻿using LibraryWebApiPavel.Models;
+﻿using AutoMapper;
+using LibraryWebApiPavel.Dto;
+using LibraryWebApiPavel.Models;
 using LibraryWebApiPavel.Repository;
 using LibraryWebApiPavel.Repository.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -12,10 +14,12 @@ namespace LibraryWebApiPavel.Controllers
     public class BooksController : ControllerBase
     {
         LibraryContext db;
+        private readonly IMapper _mapper;
         private readonly IRepository<Book> _bookRepository;
-        public BooksController(LibraryContext context)
+        public BooksController(LibraryContext context, IMapper mapper)
         {
             db = context;
+            _mapper = mapper;
             this._bookRepository = new BookRepository(db);
         }
 
@@ -64,12 +68,11 @@ namespace LibraryWebApiPavel.Controllers
             {
                 return BadRequest();
             };
-            var bookId = await _bookRepository.GetObject(book.Id);
-            if (bookId == null)
+            var bookById = await _bookRepository.GetObject(book.Id);
+            if (bookById == null)
             {
                 return NotFound();
             }
-
             _bookRepository.Update(book);
             await _bookRepository.SaveAsync();
             return NoContent();

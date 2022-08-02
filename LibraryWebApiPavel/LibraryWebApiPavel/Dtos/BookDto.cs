@@ -1,4 +1,4 @@
-﻿namespace LibraryWebApiPavel.DTO
+﻿namespace LibraryWebApiPavel.Dto
 {
     public class BookDto
     {

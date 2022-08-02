@@ -65,8 +65,8 @@ namespace LibraryWebApiPavel.Controllers
 			{
 				return BadRequest();
 			};
-			var authorId = await _authorRepository.GetObject(author.Id);
-			if (authorId == null)
+			var authorById = await _authorRepository.GetObject(author.Id);
+			if (authorById == null)
 			{
 				return NotFound();
 			}
