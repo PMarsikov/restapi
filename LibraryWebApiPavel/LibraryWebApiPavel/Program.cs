@@ -24,7 +24,6 @@ builder.Services.AddSwaggerGen(
                 Name = "Authorization",
                 Type = SecuritySchemeType.ApiKey
             });
-
             options.OperationFilter<SecurityRequirementsOperationFilter>();
         });
 
@@ -45,7 +44,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddDbContext<LibraryContext>(options => { 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-    
 }, ServiceLifetime.Singleton);
 builder.Services.AddScoped<IRepository<Book>, BookRepository>();
 builder.Services.AddScoped<IRepository<Author>, AuthorRepository>();
