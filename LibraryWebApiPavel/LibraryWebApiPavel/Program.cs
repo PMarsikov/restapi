@@ -1,6 +1,8 @@
 using LibraryWebApiPavel.Models;
 using LibraryWebApiPavel.Repository;
 using LibraryWebApiPavel.Repository.Interfaces;
+using LibraryWebApiPavel.Services;
+using LibraryWebApiPavel.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -25,6 +27,7 @@ builder.Services.AddSwaggerGen(
 
             options.OperationFilter<SecurityRequirementsOperationFilter>();
         });
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -45,6 +48,7 @@ builder.Services.AddDbContext<LibraryContext>(options => {
 });
 builder.Services.AddScoped<IRepository<Book>, BookRepository>();
 builder.Services.AddScoped<IRepository<Author>, AuthorRepository>();
+builder.Services.AddScoped<IBookService, BookService>();
 
 var app = builder.Build();
 

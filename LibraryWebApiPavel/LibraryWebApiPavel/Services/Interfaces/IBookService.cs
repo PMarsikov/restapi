@@ -4,6 +4,6 @@ namespace LibraryWebApiPavel.Services.Interfaces
 {
     public interface IBookService
     {
-        public BookDetailDto GetBooksDetails();
+        public List<BookDetailDto> GetBooksDetails();
     }
 }

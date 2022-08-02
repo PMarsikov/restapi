@@ -13,9 +13,11 @@ namespace LibraryWebApiPavel.Services
             _dbContext = dbContext;
         }
 
-        public BookDetailDto GetBooksDetails()
+        public List<BookDetailDto> GetBooksDetails()
         {
-            var result = _dbContext.Books.AsEnumerable().Join(_dbContext.Authors,
+            Console.WriteLine();
+            
+            var result = _dbContext.Books.Join(_dbContext.Authors,
                 b => b.AuthorId,
                 a => a.Id,
                 (b, a) => new BookDetailDto
@@ -26,22 +28,17 @@ namespace LibraryWebApiPavel.Services
                     AuthorMiddleName = a.AuthorMiddleName,
                     AuthorLastName = a.AuthorLastName,
                     AuthorBirthDay = a.AuthorBirthDay
-                });
-            return (BookDetailDto)result;
+                }).ToList();
+            return result;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
-        }
-        public void Dispose(bool disposing)
-        {
             if (!this.disposed)
             {
-                if (disposing)
-                {
-                    _dbContext.Dispose();
-                }
+
+                _dbContext.Dispose();
+
             }
 
             this.disposed = true;
