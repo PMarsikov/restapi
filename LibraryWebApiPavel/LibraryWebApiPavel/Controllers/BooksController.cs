@@ -8,6 +8,7 @@ namespace LibraryWebApiPavel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BooksController : ControllerBase
     {
         LibraryContext db;
@@ -18,7 +19,7 @@ namespace LibraryWebApiPavel.Controllers
             this._bookRepository = new BookRepository(db);
         }
 
-        [HttpGet, Authorize]
+        [HttpGet]
         public async Task<IActionResult> GetObjectsAsync()
         {
             try

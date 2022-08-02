@@ -1,6 +1,7 @@
 ﻿using LibraryWebApiPavel.Models;
 using LibraryWebApiPavel.Repository;
 using LibraryWebApiPavel.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,8 @@ namespace LibraryWebApiPavel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorController : ControllerBase
+	[Authorize]
+	public class AuthorController : ControllerBase
     {
 		LibraryContext db;
 		private readonly IRepository<Author> _authorRepository;
