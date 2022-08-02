@@ -2,7 +2,7 @@
 
 namespace LibraryWebApiPavel.Repository.Interfaces
 {
-    public interface IUserRepository : IDisposable
+    public interface IUserRepository<T> : IDisposable
     {
         Task<ServiceResponse<int>> Register(User user, string password);
         Task<ServiceResponse<string>> Login(string username, string password);

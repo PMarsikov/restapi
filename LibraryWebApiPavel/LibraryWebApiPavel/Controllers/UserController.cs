@@ -15,9 +15,9 @@ namespace LibraryWebApiPavel.Controllers
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository<User> _userRepository;
 
-        public AuthController(IUserRepository userRepository)
+        public AuthController(IUserRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }

@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace LibraryWebApiPavel.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository<User>
     {
         private readonly LibraryContext _dbContext;
         private readonly IConfiguration _configuration;
