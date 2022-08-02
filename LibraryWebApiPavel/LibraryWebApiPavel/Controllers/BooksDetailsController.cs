@@ -8,7 +8,7 @@ namespace LibraryWebApiPavel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+  //  [Authorize]
     public class BooksDetailsController : ControllerBase
     {
         private readonly IBookService _bookService;

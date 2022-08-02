@@ -28,7 +28,7 @@ builder.Services.AddSwaggerGen(
         });
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
-builder.Services.AddSingleton<IUserRepository<User>, UserRepository>();
+builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -41,13 +41,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddDbContext<LibraryContext>(options => { 
+builder.Services.AddDbContext<LibraryContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-}, ServiceLifetime.Singleton);
-builder.Services.AddSingleton<IRepository<Book>, BookRepository>();
-builder.Services.AddSingleton<IRepository<Author>, AuthorRepository>();
-builder.Services.AddSingleton<IBookService, BookService>();
+});//, ServiceLifetime.Singleton);
+builder.Services.AddScoped<IRepository<Book>, BookRepository>();
+builder.Services.AddScoped<IRepository<Author>, AuthorRepository>();
+builder.Services.AddScoped<IBookService, BookService>();
 
 var app = builder.Build();
 
