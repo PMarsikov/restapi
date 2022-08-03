@@ -44,26 +44,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddDbContext<LibraryContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-});//, ServiceLifetime.Singleton);
+});
 builder.Services.AddScoped<IRepository<Book>, BookRepository>();
 builder.Services.AddScoped<IRepository<Author>, AuthorRepository>();
-//builder.Services.AddScoped<IBookService, BookService>();
-
-
-
-/**/
 
 var optionsBuilder = new DbContextOptionsBuilder<LibraryContext>();
 optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
 builder.Services.AddSingleton<IBookService>(new BookService(optionsBuilder.Options));
-
-
-//builder.Services.AddSingleton<IBookService, BookService>();
-/*
-var oraOptions = new DbContextOptions<LibraryContext>();
-
-builder.Services.AddSingleton<IBookService>(new BookService(oraOptions));
-*/
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
