@@ -8,7 +8,7 @@ namespace LibraryWebApiPavel.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-  //  [Authorize]
+    [Authorize]
     public class BooksDetailsController : ControllerBase
     {
         private readonly IBookService _bookService;
@@ -21,6 +21,7 @@ namespace LibraryWebApiPavel.Controllers
         [HttpGet]
         public async Task<IActionResult> GetObjectsAsync()
         {
+            Console.WriteLine();
             try
             {
                 var result = _bookService.GetBooksDetails();
@@ -28,7 +29,7 @@ namespace LibraryWebApiPavel.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Internal server error");
+                return StatusCode(500, "Internal server error!");
             }
         }
     }
