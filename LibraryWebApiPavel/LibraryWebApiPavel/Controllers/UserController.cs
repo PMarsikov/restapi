@@ -43,7 +43,7 @@ namespace LibraryWebApiPavel.Controllers
             {
                 return BadRequest(response);
             }
-            return Ok(response);
+            return Ok(response.Data);
         }
     }
 }
