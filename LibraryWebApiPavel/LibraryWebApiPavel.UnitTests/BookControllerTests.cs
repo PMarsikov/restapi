@@ -45,12 +45,12 @@ namespace LibraryWebApiPavel.UnitTests
             libraryContext.SaveChanges();
         }
 
-        
+
         [SetUp]
         public void Init()
-        { 
+        {
             controller = new BooksController(libraryContext);
-         }
+        }
 
         [Test]
         public async Task BooksController_GetObjectsAsync_SuccesfullyRecievedBooks()
@@ -66,15 +66,15 @@ namespace LibraryWebApiPavel.UnitTests
 
         [Test]
         public async Task BooksController_GetObject_SuccesfullyRecievedBook()
-        {        
+        {
             // Act
-            var resultResponse = await controller.Get(1) as ObjectResult;    
+            var resultResponse = await controller.Get(1) as ObjectResult;
 
             // Assert
 
             var result = resultResponse?.Value as Book;
-            
-            Assert.IsNotNull(result);            
+
+            Assert.IsNotNull(result);
             Assert.AreEqual(2001, result.BookYear);
         }
 
@@ -82,17 +82,17 @@ namespace LibraryWebApiPavel.UnitTests
         public async Task BooksController_GetObject_BookIsNotFound()
         {
             // Act
-            var resultResponse = await controller.Get(999) as ObjectResult;    
+            var resultResponse = await controller.Get(999) as ObjectResult;
 
             // Assert
 
             var result = resultResponse?.Value as Book;
-            
-            Assert.Null(result);            
+
+            Assert.Null(result);
         }
 
         [Test]
-        public async Task BooksController_CreateObject_BookIsNotFound()
+        public async Task BooksController_CreateObject_BookCreated()
         {
             // Arrange
             var fakeBook = new Book()
@@ -101,18 +101,18 @@ namespace LibraryWebApiPavel.UnitTests
                 Title = "fakeTitle",
                 BookYear = 1992,
                 AuthorId = 888
-            };   
+            };
 
             // Act        
             var response = await controller.Post(fakeBook);
             var bookResult = response.Result as ObjectResult;
-            
+
             // // Assert
             var result = bookResult?.Value as Book;
-            
-             Assert.IsNotNull(result);            
-             Assert.AreEqual(fakeBook.Title, result.Title);            
-             Assert.AreEqual(fakeBook.BookYear, result.BookYear);                    
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(fakeBook.Title, result.Title);
+            Assert.AreEqual(fakeBook.BookYear, result.BookYear);
         }
 
         [Test]
@@ -120,31 +120,31 @@ namespace LibraryWebApiPavel.UnitTests
         {
             // Arrange
             var updateTitle = "updated Title";
-            var existingBook = await controller.Get(1) as ObjectResult;        
+            var existingBook = await controller.Get(1) as ObjectResult;
             var book = existingBook?.Value as Book;
-            book.Title=updateTitle;
+            book.Title = updateTitle;
 
             // Act        
             await controller.Put(book);
-            
+
             // // Assert
-            var updatedBook = await controller.Get(1) as ObjectResult;        
+            var updatedBook = await controller.Get(1) as ObjectResult;
             var bookAfterUpdate = updatedBook?.Value as Book;
 
-             Assert.IsNotNull(bookAfterUpdate);            
-             Assert.AreEqual(updateTitle, bookAfterUpdate.Title);            
+            Assert.IsNotNull(bookAfterUpdate);
+            Assert.AreEqual(updateTitle, bookAfterUpdate.Title);
         }
 
-                [Test]
+        [Test]
         public async Task BooksController_DeleteObject_DeletedBook()
         {
             // Act        
-            await controller.Delete(1);
-            
+            await controller.Delete(2);
+
             // // Assert
-            var updatedBook = await controller.Get(1) as ObjectResult;        
-          
-             Assert.Null(updatedBook);            
+            var updatedBook = await controller.Get(2) as ObjectResult;
+
+            Assert.Null(updatedBook);
         }
     }
 }
