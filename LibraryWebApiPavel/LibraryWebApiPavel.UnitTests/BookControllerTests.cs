@@ -61,7 +61,7 @@ namespace LibraryWebApiPavel.UnitTests
 
             // Assert
             Assert.IsNotNull(okResult);
-            Assert.AreEqual(200, okResult.StatusCode);
+            Assert.That(okResult.StatusCode, Is.EqualTo(200));
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace LibraryWebApiPavel.UnitTests
             var result = resultResponse?.Value as Book;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(2001, result.BookYear);
+            Assert.That(result.BookYear, Is.EqualTo(2001));
         }
 
         [Test]
@@ -111,8 +111,8 @@ namespace LibraryWebApiPavel.UnitTests
             var result = bookResult?.Value as Book;
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(fakeBook.Title, result.Title);
-            Assert.AreEqual(fakeBook.BookYear, result.BookYear);
+            Assert.That(result.Title, Is.EqualTo(fakeBook.Title));
+            Assert.That(result.BookYear, Is.EqualTo(fakeBook.BookYear));
         }
 
         [Test]
@@ -131,8 +131,8 @@ namespace LibraryWebApiPavel.UnitTests
             var updatedBook = await controller.Get(1) as ObjectResult;
             var bookAfterUpdate = updatedBook?.Value as Book;
 
-            Assert.IsNotNull(bookAfterUpdate);
-            Assert.AreEqual(updateTitle, bookAfterUpdate.Title);
+            Assert.That(bookAfterUpdate, Is.Not.Null);
+            Assert.That(bookAfterUpdate.Title, Is.EqualTo(updateTitle));
         }
 
         [Test]
