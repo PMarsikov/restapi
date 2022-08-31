@@ -55,9 +55,6 @@ namespace LibraryWebApiPavel.UnitTests
         [Test]
         public async Task BooksController_GetObjectsAsync_SuccesfullyRecievedBooks()
         {
-            // Arrange
-            var controller = new BooksController(libraryContext);
-
             // Act
             var response = await controller.GetObjectsAsync();
             var okResult = response as OkObjectResult;
@@ -66,7 +63,6 @@ namespace LibraryWebApiPavel.UnitTests
             Assert.IsNotNull(okResult);
             Assert.AreEqual(200, okResult.StatusCode);
         }
-
 
         [Test]
         public async Task BooksController_GetObject_SuccesfullyRecievedBook()
@@ -95,5 +91,60 @@ namespace LibraryWebApiPavel.UnitTests
             Assert.Null(result);            
         }
 
+        [Test]
+        public async Task BooksController_CreateObject_BookIsNotFound()
+        {
+            // Arrange
+            var fakeBook = new Book()
+            {
+                Id = 8,
+                Title = "fakeTitle",
+                BookYear = 1992,
+                AuthorId = 888
+            };   
+
+            // Act        
+            var response = await controller.Post(fakeBook);
+            var bookResult = response.Result as ObjectResult;
+            
+            // // Assert
+            var result = bookResult?.Value as Book;
+            
+             Assert.IsNotNull(result);            
+             Assert.AreEqual(fakeBook.Title, result.Title);            
+             Assert.AreEqual(fakeBook.BookYear, result.BookYear);                    
+        }
+
+        [Test]
+        public async Task BooksController_UpdateObject_UpdatedBook()
+        {
+            // Arrange
+            var updateTitle = "updated Title";
+            var existingBook = await controller.Get(1) as ObjectResult;        
+            var book = existingBook?.Value as Book;
+            book.Title=updateTitle;
+
+            // Act        
+            await controller.Put(book);
+            
+            // // Assert
+            var updatedBook = await controller.Get(1) as ObjectResult;        
+            var bookAfterUpdate = updatedBook?.Value as Book;
+
+             Assert.IsNotNull(bookAfterUpdate);            
+             Assert.AreEqual(updateTitle, bookAfterUpdate.Title);            
+        }
+
+                [Test]
+        public async Task BooksController_DeleteObject_DeletedBook()
+        {
+            // Act        
+            await controller.Delete(1);
+            
+            // // Assert
+            var updatedBook = await controller.Get(1) as ObjectResult;        
+          
+             Assert.Null(updatedBook);            
+        }
     }
 }
