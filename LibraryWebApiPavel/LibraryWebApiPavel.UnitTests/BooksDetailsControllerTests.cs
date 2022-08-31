@@ -58,7 +58,7 @@ namespace LibraryWebApiPavel.UnitTests
           
             // Assert
             Assert.IsNotNull(okResult);
-            Assert.AreEqual(2, resultList?.Count);
+            Assert.That(resultList?.Count, Is.EqualTo(2));
         }
     }
 }
