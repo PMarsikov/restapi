@@ -16,10 +16,9 @@ namespace LibraryWebApiPavel.Controllers
         LibraryContext db;
         private readonly IMapper _mapper;
         private readonly IRepository<Book> _bookRepository;
-        public BooksController(LibraryContext context, IMapper mapper)
+        public BooksController(LibraryContext context)
         {
             db = context;
-            _mapper = mapper;
             this._bookRepository = new BookRepository(db);
         }
 
@@ -39,12 +38,12 @@ namespace LibraryWebApiPavel.Controllers
 
         // GET api/books/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             Book book = await _bookRepository.GetObject(id);
             if (book == null)
                 return NotFound();
-            return new ObjectResult(book);
+             return new ObjectResult(book);
         }
 
         // POST api/books
